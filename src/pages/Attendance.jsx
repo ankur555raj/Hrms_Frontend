@@ -22,29 +22,26 @@ const Attendance = () => {
   const [filters, setFilters] = useState({ employee_id: "", date: "" });
   const [formData, setFormData] = useState({ employee: "", date: "", status: "Present" });
 
-  const loadEmployees = async () => {
-    const response = await getEmployees();
-    setEmployees(response.data || []);
-  };
-
-  const loadAttendance = async (params = {}) => {
-    const response = await getAttendance(params);
-    setAttendance(response.data || []);
-  };
-
-  const loadAll = async () => {
-    try {
-      setLoading(true);
-      await Promise.all([loadEmployees(), loadAttendance()]);
-      setError("");
-    } catch (err) {
-      setError("Unable to load attendance records.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const loadAll = async () => {
+      try {
+        setLoading(true);
+
+        const [employeesRes, attendanceRes] = await Promise.all([
+          getEmployees(),
+          getAttendance(),
+        ]);
+
+        setEmployees(employeesRes.data || []);
+        setAttendance(attendanceRes.data || []);
+        setError("");
+      } catch (err) {
+        setError("Unable to load attendance records.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
     loadAll();
   }, []);
 
@@ -83,7 +80,10 @@ const Attendance = () => {
         status: formData.status,
       });
       setFormData({ employee: "", date: "", status: "Present" });
-      await loadAttendance(filters.employee_id ? { employee_id: filters.employee_id } : {});
+      const response = await getAttendance(
+        filters.employee_id ? { employee_id: filters.employee_id } : {}
+      );
+      setAttendance(response.data || []);
       setError("");
     } catch (err) {
       setError(err?.response?.data?.non_field_errors?.[0] || "Unable to mark attendance.");
@@ -100,7 +100,10 @@ const Attendance = () => {
   const applyEmployeeFilter = async () => {
     try {
       setLoading(true);
-      await loadAttendance(filters.employee_id ? { employee_id: filters.employee_id } : {});
+      const response = await getAttendance(
+        filters.employee_id ? { employee_id: filters.employee_id } : {}
+      );
+      setAttendance(response.data || []);
     } catch (err) {
       setError("Unable to filter attendance.");
     } finally {
@@ -196,11 +199,10 @@ const Attendance = () => {
                 <td className="px-4 py-3">{record.date}</td>
                 <td className="px-4 py-3">
                   <span
-                    className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                      record.status === "Present"
-                        ? "bg-emerald-100 text-emerald-700"
-                        : "bg-rose-100 text-rose-600"
-                    }`}
+                    className={`rounded-full px-3 py-1 text-xs font-semibold ${record.status === "Present"
+                      ? "bg-emerald-100 text-emerald-700"
+                      : "bg-rose-100 text-rose-600"
+                      }`}
                   >
                     {record.status}
                   </span>

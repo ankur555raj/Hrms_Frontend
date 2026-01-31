@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# HRMS Lite - Full-Stack HR Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A lightweight, production-ready HR Management System for managing employees and attendance records. Built with Django (PostgreSQL) backend and React frontend.
 
-## Available Scripts
+## 🚀 Tech Stack
 
-In the project directory, you can run:
+### Frontend
+- **React.js** (latest with JSX)
+- **Axios** for API communication
+- **Tailwind CSS** for styling
+- **React Router** for navigation
 
-### `npm start`
+### Backend
+- **Django 5.0** with Django REST Framework
+- **PostgreSQL** database
+- **CORS** support for cross-origin requests
+- **Gunicorn** for production server
+- **WhiteNoise** for static file serving
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 📋 Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. Employee Management
+- ✅ Add new employees with validation
+- ✅ View all employees in a table
+- ✅ Delete employees
+- ✅ Unique employee ID and email validation
+- ✅ Department categorization
 
-### `npm test`
+### 2. Attendance Management
+- ✅ Mark attendance (Present/Absent)
+- ✅ View attendance records by employee
+- ✅ Filter attendance by date range
+- ✅ Prevent duplicate attendance entries
+- ✅ View attendance statistics per employee
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 3. Dashboard
+- ✅ Total employee count
+- ✅ Total attendance records
+- ✅ Recent attendance overview
+- ✅ Quick access to all features
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🔧 Local Development Setup
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
+- Python 3.11+
+- Node.js 18+
+- PostgreSQL 14+
+- Git
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm install
+npm run dev
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Frontend will be available at: `http://localhost:3000`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📦 API Endpoints
 
-## Learn More
+### Employees
+- `GET /api/employees/` - List all employees
+- `POST /api/employees/` - Create new employee
+- `DELETE /api/employees/{id}/` - Delete employee
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Attendance
+- `GET /api/attendance/` - List attendance records
+- `GET /api/attendance/?employee_id={id}` - Filter by employee
+- `POST /api/attendance/` - Create attendance record
+- `GET /api/attendance/stats/` - Get attendance statistics
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Dashboard
+- `GET /api/dashboard/` - Get dashboard statistics
 
-### Code Splitting
+## 📝 Assumptions & Limitations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Assumptions
+- Single admin user (no authentication required)
+- Small to medium-sized organizations
+- Simple attendance tracking (Present/Absent only)
+- No leave management or payroll features
+- All users have admin access to all features
 
-### Analyzing the Bundle Size
+### Limitations
+- No user authentication/authorization
+- No role-based access control
+- No email notifications
+- No file uploads (employee documents)
+- No advanced reporting/analytics
+- No bulk operations
+- No attendance editing (only creation)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
